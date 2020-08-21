@@ -1,0 +1,13 @@
+Some of the features/requirements of the fast Food delivery app include: - 
+1. User should be able to sign-in as a customer
+2. Customer can make an order that’ll be delivered to his address
+3. Geo-location and order tracking
+4. Customers have 2 modes of payment: online, cash on delivery
+5. Customer pays delivery charge different from the cost of the food, etc. The delivery charge is directly proportional to the
+   distance from restaurant to the customers address.
+6. Customer/driver can see his/her order history
+7. Customer can chat with a company's representative from the app to resolve any issues
+8. Customer can track the status of his order and the drivers location en route order delivery in real-time
+9. Merchant can offer targeted discounts to a customer via a promo code
+10. The merchants interface allows him to update the price and quantity of food remaining in real-time.
+    Thus, a customer does not make an order thinking it will be delivered, when actually the food has finished, etc.
