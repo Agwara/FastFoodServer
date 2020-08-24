@@ -3,8 +3,9 @@ const bodyParser = require("body-parser")
 require("./database/mongoose")
 const cors = require("cors")
 
-const customerRouter = require("./routers/customer")
 const adminRouter = require("./routers/admin")
+const customerRouter = require("./routers/customer")
+const orderRouter = require("./routers/order")
 const productRouter = require("./routers/product")
 
 const app = express()
@@ -19,6 +20,7 @@ app.use(express.json())
 app.use(customerRouter)
 app.use(adminRouter)
 app.use(productRouter)
+app.use(orderRouter)
 
 app.listen(port, () => {
 	console.log("Server is up on port " + port)

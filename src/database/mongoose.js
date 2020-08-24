@@ -1,18 +1,16 @@
 const mongoose = require("mongoose")
 
-// ONLINE DATABASE
-// mongoose.connect(process.env.MONGODB_URL, {
-// 	useNewUrlParser: true,
-// 	useCreateIndex: true,
-// 	useUnifiedTopology: true,
-// 	useFindAndModify: false
-// });
+// Local Database URL
+const localURL = process.env.MONGODB_URL
 
-// PRODUCTION DATABASE
-mongoose.Promise = global.Promise;
-mongoose.connect(process.env.PROD_MONGODB_URL, {
+// Online Database URL
+// const onlineURL = process.env.PROD_MONGODB_URL
+
+mongoose.Promise = global.Promise
+
+mongoose.connect(localURL, {
 	useNewUrlParser: true,
 	useCreateIndex: true,
 	useUnifiedTopology: true,
 	useFindAndModify: false
- });
+})

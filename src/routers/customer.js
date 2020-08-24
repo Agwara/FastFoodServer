@@ -29,7 +29,7 @@ router.post("/customers/login", async (request, response) => {
 			token
 		})
 	} catch (e) {
-		response.status(400).send(e)
+		response.status(400).send({error: "Invalid email or password!"})
 	}
 })
 
