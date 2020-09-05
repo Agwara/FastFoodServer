@@ -5,8 +5,11 @@ const cors = require("cors")
 
 const adminRouter = require("./routers/admin")
 const customerRouter = require("./routers/customer")
+const imageRouter = require("./routers/image")
 const orderRouter = require("./routers/order")
 const productRouter = require("./routers/product")
+
+// require("./services/cache")
 
 const app = express()
 
@@ -17,8 +20,9 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(express.json())
-app.use(customerRouter)
 app.use(adminRouter)
+app.use(imageRouter)
+app.use(customerRouter)
 app.use(productRouter)
 app.use(orderRouter)
 

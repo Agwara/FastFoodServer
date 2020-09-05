@@ -1,12 +1,11 @@
 const express = require("express")
-const multer = require("multer")
-const sharp = require("sharp")
 const Product = require("../models/product")
+const Image = require("../models/image")
 const auth = require("../middleware/AdminAuth")
 const router = new express.Router()
 
 // Http endpoint for creating a product.
-router.post("/product/create", async (request, response) => {
+router.post("/product/create", auth, async (request, response) => {
 	const product = new Product(request.body)
 	
 	try {
@@ -32,7 +31,7 @@ router.get("/product/:id", async (request, response) => {
 	const _id = request.params.id
 	
 	try {
-		const product = await Product.findOne({ _id }) 
+		const product = await Product.findOne({ _id })
 		
 		if (!product) {
 			response.status(404).send()
@@ -88,51 +87,19 @@ router.delete("/product/delete/:id", auth, async (request, response) => {
 })
 
 
-const upload = multer({
-	limits: {
-		fileSize: 500000
-	},
-	fileFilter(request, file, cb) {
-		if (!file.originalname.match(/\.(jpg|jpeg|png)$/)) {
-			return cb(new Error("Please upload an image"))
-		}
-		
-		cb(undefined, true)
-	}
-})
-
-// Http endpoint for uploading a product picture.
-router.post("/product/image/:id", auth, upload.single("image"), async (request, response) => {
-	const product = await Product.findOne({ _id: request.params.id })
-	
-	if (!product) {
-		response.status(400).send()
-	}
-	
-	const buffer = await sharp(request.file.buffer).resize({
-		width: 150,
-		height: 150}).png().toBuffer()
-	
-	product.image = buffer
-	await product.save()
-	response.send()
-	
-}, (error, request, response, next) => {
-	response.status(400).send({ error: error.message })
-})
-
-
 // Http endpoint for viewing a product image.
 router.get("/product/:id/image", async (request, response) => {
 	try {
 		const product = await Product.findById(request.params.id)
 		
-		if (!product || !product.image) {
+		if (!product) {
 			throw new Error()
 		}
 		
+		const prodImage = await Image.findOne({ name: product.imageName })
+
 		response.set("Content-Type", "image/png")
-		response.send(product.image)
+		response.send(prodImage.image)
 	} catch (e) {
 		response.status(404).send()
 	} 

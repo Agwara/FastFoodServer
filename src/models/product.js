@@ -8,8 +8,10 @@ const productSchema = new mongoose.Schema({
 		required: "Name is required"
 	},
 	
-	image: {
-		type: Buffer
+	imageName: {
+		type: mongoose.Schema.Types.String,
+		ref: "Image",
+		default: "defaultImage"
 	},
 	
 	category: {
@@ -30,9 +32,9 @@ const productSchema = new mongoose.Schema({
 		default: true
 	},
 	
-	serveWith: [{
+	serveWith: {
 		type: String
-	}]
+	}
 }, {
 	timestamps: true
 })
