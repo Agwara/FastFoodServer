@@ -1,6 +1,8 @@
 const express = require("express")
 const Order = require("../models/order")
 const auth = require("../middleware/customerAuth")
+const adminAuth = require("../middleware/adminAuth")
+
 // const cleanCache = require("../middleware/cleanCache")
 const router = new express.Router()
 
@@ -10,7 +12,7 @@ const router = new express.Router()
 // router.post("/order/create", auth, cleanCache, async (request, response) => {
 //     const order = new Order({
 //         ...request.body,
-//         owner: request.customer._id
+//         owner: request.customer.email
 //     })
 
 //     try {
@@ -26,7 +28,7 @@ const router = new express.Router()
 router.post("/order/create", auth, async (request, response) => {
     const order = new Order({
         ...request.body,
-        owner: request.customer._id
+        owner: request.customer.email
     });
 
     try {
@@ -38,7 +40,7 @@ router.post("/order/create", auth, async (request, response) => {
 })
 
 // Http endpoint for getting all orders
-router.get("/admin/orders", async (request, response) => {
+router.get("/admin/orders", adminAuth, async (request, response) => {
     try {
         const orders = await Order.find({})
         response.send(orders)
@@ -53,7 +55,7 @@ router.get("/admin/orders", async (request, response) => {
 // router.get("/orders/me", auth, async (request, response) => {
 //     try {
 //         const idString = JSON.stringify(request.customer._id)
-//         const orders = await Order.find({ owner: request.customer._id }).cache({
+//         const orders = await Order.find({ owner: request.customer.email }).cache({
 //             key: idString
 //          });
 
@@ -66,11 +68,22 @@ router.get("/admin/orders", async (request, response) => {
 // Http endpoint for fetching a customer's list of orders
 router.get("/orders/me", auth, async (request, response) => {
     try {
-        const orders = await Order.find({ owner: request.customer._id });
+        const orders = await Order.find({ owner: request.customer.email });
 
         response.send(orders)
     } catch (e) {
         response.status(500).send()
+    }
+})
+
+// Http endpoint for delete all transactions in the database.
+router.delete("/orders/delete", adminAuth, async (request, response) => {
+    try {
+        await Order.deleteMany({})
+        response.send("Deleted all transactions")
+
+    } catch (e) {
+        response.status(500).send(e)
     }
 })
 

@@ -43,7 +43,7 @@ productSchema.methods.toJSON = function () {
 	const product = this
 	const productObject = product.toObject()
 	
-	delete productObject.image
+	delete productObject.imageName
 	
 	return productObject
 }

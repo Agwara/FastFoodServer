@@ -40,6 +40,12 @@ const customerSchema = new mongoose.Schema({
 		
 	},
 
+	deliveryAddress: {
+		type: String,
+		trim: true,
+		lowercase: true
+	},
+
 	password: {
 		type: String,
 		required: true,
@@ -65,7 +71,7 @@ const customerSchema = new mongoose.Schema({
 
 customerSchema.virtual('orders', {
     ref: 'Order',
-    localField: '_id',
+    localField: 'email',
     foreignField: 'owner'
 })
 

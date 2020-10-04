@@ -67,7 +67,9 @@ router.get("/customers/all", async (request, response) => {
 // Http endpoint for updating a customer
 router.patch("/customers/me", auth, async (request, response) => {
 	const updates = Object.keys(request.body)
-	const allowedUpdates = ["firstName", "lastName", "email", "password", "phone"]
+	const allowedUpdates = [
+		"firstName", "lastName", "email", "password", "phone", "deliveryAddress"
+	]
 	const isValidOperation = updates.every((update) => allowedUpdates.includes(update))
 
 	if (!isValidOperation) {
