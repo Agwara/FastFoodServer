@@ -1,7 +1,7 @@
 const express = require("express")
 const Product = require("../models/product")
 const Image = require("../models/image")
-const auth = require("../middleware/AdminAuth")
+const auth = require("../middleware/adminAuth");
 const router = new express.Router()
 
 // Http endpoint for creating a product.
