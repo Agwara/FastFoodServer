@@ -34,6 +34,23 @@ router.post("/customers/login", async (request, response) => {
 })
 
 
+// Http endpoint for finding a customer by email
+router.post("/customers/find-by-email", async (request, response) => {
+	try {
+		const customer = await Customer.findOne({ email: request.body.email })
+
+		if (customer) {
+			response.send(true)
+		} else {
+			response.send(false)
+		}
+
+	} catch (e) {
+		response.status(400).send()
+	}
+})
+
+
 // Http endpoint for logging-out from all sessions
 router.post("/customers/logoutAll", auth, async (request, response) => {
 	try {

@@ -21,7 +21,6 @@ const customerSchema = new mongoose.Schema({
 		unique: true,
 		required: true,
 		trim: true,
-		lowercase: true,
 		validate(value) {
 			if (!validator.isEmail(value)) {
 				throw new Error("Email is invalid")
@@ -42,8 +41,7 @@ const customerSchema = new mongoose.Schema({
 
 	deliveryAddress: {
 		type: String,
-		trim: true,
-		lowercase: true
+		trim: true
 	},
 
 	password: {
