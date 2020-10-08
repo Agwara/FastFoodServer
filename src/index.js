@@ -13,7 +13,8 @@ const productRouter = require("./routers/product")
 
 const app = express()
 
-app.use(cors({credentials: true, origin: 'http://localhost:8080'}))
+//app.use(cors({credentials: true, origin: 'http://localhost:8080'}))
+app.use(cors({credentials: true, origin: "https://agwara-fast-food-client.herokuapp.com"}))
 const port = process.env.PORT
 
 app.use(bodyParser.json())
